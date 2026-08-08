@@ -1,0 +1,118 @@
+.TH GOTTA-GO-FAST 1 "August 2026" "gotta-go-fast 0.3.0.8" "User Commands"
+.SH NAME
+gotta-go-fast \- terminal utility for practicing typing and measuring WPM and accuracy
+.SH SYNOPSIS
+.B gotta-go-fast
+[\fIOPTIONS\fR] [\fIFILES\fR...]
+.SH DESCRIPTION
+.B gotta-go-fast
+is a terminal-based application written in Haskell using
+.B brick
+that allows users to practice typing and measure their speed (words per minute)
+and accuracy.
+.PP
+In all modes of operation, you type through the presented target text and submit
+the test with
+.B ENTER
+upon completion. Mistakes are highlighted as you type and \fBmust\fR be corrected
+before the test can be successfully submitted. Press
+.B ESC
+at any time to restart the session with a new sample.
+.SH MODES OF OPERATION
+.B gotta-go-fast
+supports three distinct modes of operation depending on command-line arguments:
+.TP
+.B Nonsense Mode
+Invoked when no input files are provided. Generates text that is statistically similar
+to English based on word frequencies. The length of generated text can be configured
+using the \fB\-l\fR / \fB\-\-nonsense-len\fR option.
+.TP
+.B Chunk Mode
+Invoked when one or more \fIFILES\fR are specified without the \fB\-p\fR / \fB\-\-paragraph\fR
+flag. Samples a random chunk of lines from a randomly chosen file. The line count
+can be set via \fB\-h\fR / \fB\-\-height\fR. This mode is well-suited for source code or
+unstructured text files.
+.TP
+.B Paragraph Mode
+Invoked when input \fIFILES\fR are supplied along with the \fB\-p\fR or \fB\-\-paragraph\fR
+flag. Samples a random paragraph (delimited by empty lines) from a randomly selected file.
+Minimum and maximum paragraph word lengths can be controlled with \fB\-\-min-paragraph-len\fR
+and \fB\-\-max-paragraph-len\fR. Paragraphs can optionally be reflowed to the target width
+using \fB\-r\fR / \fB\-\-reflow\fR.
+.SH OPTIONS
+.TP
+.BI \-\-fg\-empty= COLOUR
+Set the ANSI colour code for empty (not yet typed) text (default: 8).
+.TP
+.BI \-\-fg\-error= COLOUR
+Set the ANSI colour code for typing errors (default: 1).
+.TP
+.BI \-h ", " \-\-height= LINES
+Maximum number of lines to sample in Chunk Mode (default: 20).
+.TP
+.BI \-\-max\-paragraph\-len= WORDS
+Maximum word count for sampled paragraphs in Paragraph Mode (default: 750).
+.TP
+.BI \-\-min\-paragraph\-len= WORDS
+Minimum word count for sampled paragraphs in Paragraph Mode (default: 250).
+.TP
+.BI \-l ", " \-\-nonsense\-len= WORDS
+Number of words to generate in Nonsense Mode (default: 500).
+.TP
+.BR \-p ", " \-\-paragraph
+Enable Paragraph Mode when sampling from input files.
+.TP
+.BR \-r ", " \-\-reflow
+Reflow paragraph text to fit the target line width in Paragraph Mode.
+.TP
+.BI \-t ", " \-\-tab= SIZE
+Width of tab characters expanded to spaces (default: 4).
+.TP
+.BI \-w ", " \-\-width= CHARS
+Target line width in characters for line wrapping (default: 80).
+.TP
+.BR \-? ", " \-\-help
+Display command help summary and exit.
+.TP
+.BR \-V ", " \-\-version
+Display version information and exit.
+.SH KEYBINDINGS
+.TP
+.B Printable Characters
+Type target text. The timer starts automatically on the first character typed.
+.TP
+.B Backspace
+Delete the previously typed character.
+.TP
+.B Ctrl-w, Ctrl-Backspace, Alt-Backspace, Meta-Backspace
+Delete back to the beginning of the previous word.
+.TP
+.B Esc
+Restart the typing test with a freshly sampled text target.
+.TP
+.B Enter
+Advance to the next line or submit the completed test (when error-free).
+.TP
+.B Ctrl-c, Ctrl-d
+Quit the application.
+.SH EXAMPLES
+.PP
+Practice typing generated pseudo-English text with 60-character line wrapping:
+.RS
+.B gotta-go-fast -w 60
+.RE
+.PP
+Sample code chunks from source files with a maximum height of 15 lines:
+.RS
+.B gotta-go-fast -h 15 src/*.hs
+.RE
+.PP
+Practice typing prose paragraphs from text files with reflowing enabled:
+.RS
+.B gotta-go-fast -prw 60 books/*.txt
+.RE
+.SH AUTHORS
+Callum Oakley <hello@callumoakley.net>
+.SH SEE ALSO
+.BR stack (1),
+.BR cabal (1)

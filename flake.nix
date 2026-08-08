@@ -12,7 +12,12 @@
         pkgs = nixpkgs.legacyPackages.${system};
         haskellPackages = pkgs.haskellPackages;
 
-        gotta-go-fast = haskellPackages.callCabal2nix "gotta-go-fast" ./. {};
+        gotta-go-fast = (haskellPackages.callCabal2nix "gotta-go-fast" ./. {}).overrideAttrs (oldAttrs: {
+          postInstall = (oldAttrs.postInstall or "") + ''
+            install -Dm644 gotta-go-fast.1 $out/share/man/man1/gotta-go-fast.1
+            install -Dm644 completions/gotta-go-fast.fish $out/share/fish/vendor_completions.d/gotta-go-fast.fish
+          '';
+        });
       in
       {
         packages = {
