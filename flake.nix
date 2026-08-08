@@ -13,9 +13,10 @@
         haskellPackages = pkgs.haskellPackages;
 
         gotta-go-fast = (haskellPackages.callCabal2nix "gotta-go-fast" ./. {}).overrideAttrs (oldAttrs: {
+          nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ pkgs.installShellFiles ];
           postInstall = (oldAttrs.postInstall or "") + ''
-            install -Dm644 gotta-go-fast.1 $out/share/man/man1/gotta-go-fast.1
-            install -Dm644 completions/gotta-go-fast.fish $out/share/fish/vendor_completions.d/gotta-go-fast.fish
+            installManPage gotta-go-fast.1
+            installShellCompletion --fish completions/gotta-go-fast.fish
           '';
         });
       in
