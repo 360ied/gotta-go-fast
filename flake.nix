@@ -6,14 +6,20 @@
     flake-utils.url = "github:numtide/flake-utils";
   };
 
-  outputs = { self, nixpkgs, flake-utils }:
-    flake-utils.lib.eachDefaultSystem (system:
+  outputs =
+    {
+      self,
+      nixpkgs,
+      flake-utils,
+    }:
+    flake-utils.lib.eachDefaultSystem (
+      system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
         haskellPackages = pkgs.haskellPackages;
 
-        gotta-go-fast = (haskellPackages.callCabal2nix "gotta-go-fast" ./. {}).overrideAttrs (oldAttrs: {
-          nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [ pkgs.installShellFiles ];
+        gotta-go-fast = (haskellPackages.callCabal2nix "gotta-go-fast" ./. { }).overrideAttrs (oldAttrs: {
+          nativeBuildInputs = (oldAttrs.nativeBuildInputs or [ ]) ++ [ pkgs.installShellFiles ];
           postInstall = (oldAttrs.postInstall or "") + ''
             installManPage gotta-go-fast.1
             installShellCompletion --fish completions/gotta-go-fast.fish
@@ -37,12 +43,19 @@
 
         devShells.default = haskellPackages.shellFor {
           packages = p: [ gotta-go-fast ];
-          buildInputs = with haskellPackages; [
-            cabal-install
-            haskell-language-server
-            ghcid
-          ];
+          buildInputs =
+            with haskellPackages;
+            [
+              cabal-install
+              haskell-language-server
+              ghcid
+              hlint
+            ]
+            ++ [
+              pkgs.nixfmt
+            ];
           withHoogle = true;
         };
-      });
+      }
+    );
 }

@@ -16,6 +16,18 @@ Download binary (macOS):
 
 Where `DEST` is somewhere in your `PATH`.
 
+### Development with Nix & Direnv
+
+Enter the Nix development shell directly:
+
+    $ nix develop
+
+Or enable [direnv](https://direnv.net) for automatic environment loading when entering the directory:
+
+    $ direnv allow
+
+The shell provides GHC, `cabal-install`, `haskell-language-server`, `ghcid`, `hlint`, `nixfmt`, and Hoogle documentation.
+
 ## Usage
 
 `gotta-go-fast` has three modes of operation. In all three modes, type through the presented text and then submit with ENTER. You **must** correct your mistakes before you can submit. Press ESC at any time to restart. Exit with CTRL-C.
