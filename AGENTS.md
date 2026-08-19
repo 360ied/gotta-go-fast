@@ -9,8 +9,8 @@
 
 ### 2. Maintain Working Build State
 - Each commit must leave the codebase in a fully building and working state.
-- Run tests and verify the build passes before committing any change (`nix develop --command ./gradlew test`).
-- Use auto formatters before commiting changes (e.g. `nixfmt`).
+- Run tests and verify the build passes before committing any change (`nix develop --command bash -c "cd web && bun test"` and `cabal test`).
+- Use auto formatters before commiting changes (e.g. `nixfmt`, `biome format --write web/`).
 
 ### 3. Clear & Imperative Commit Messages
 - Use concise, imperative commit messages (e.g. `proto: add version_v2 to Mumble.proto` instead of `added version_v2`).
