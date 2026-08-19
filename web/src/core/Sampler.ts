@@ -21,7 +21,7 @@ export function parseWordWeights(raw: string): WordWeightTable {
     if (parts.length >= 2) {
       const word = parts[0];
       const freq = parseInt(parts[1], 10);
-      if (!isNaN(freq) && freq > 0) {
+      if (!Number.isNaN(freq) && freq > 0) {
         words.push(word);
         total += freq;
         cumulativeWeights.push(total);
@@ -125,9 +125,9 @@ export function sampleParagraph(config: Config, fileText: string): string {
 
   if (config.reflow) {
     const flattened = chosen.replace(/\n/g, ' ');
-    return wrapText(config.width, flattened) + '\n';
+    return `${wrapText(config.width, flattened)}\n`;
   } else {
-    return wrapText(config.width, chosen) + '\n';
+    return `${wrapText(config.width, chosen)}\n`;
   }
 }
 

@@ -34,7 +34,7 @@ export function trimEmptyLines(text: string): string {
   while (end > start && text[end - 1] === '\n') {
     end--;
   }
-  return text.slice(start, end) + '\n';
+  return `${text.slice(start, end)}\n`;
 }
 
 export function wrapLine(width: number, line: string): string[] {
@@ -67,7 +67,7 @@ export function wrapLine(width: number, line: string): string[] {
         currentLine += ' ';
       } else {
         lines.push(currentLine);
-        currentLine = indent + ' ';
+        currentLine = ' ';
       }
       continue;
     }

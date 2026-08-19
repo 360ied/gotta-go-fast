@@ -188,7 +188,7 @@ function character(p: Position, t: string | null, i: string | null): Character {
     return { kind: 'Miss', char: t };
   }
   // AfterCursor and t !== null && i === null
-  return { kind: 'Empty', char: t! };
+  return { kind: 'Empty', char: t ?? '' };
 }
 
 function line(p: Position, ts: string, isStr: string): Line {
