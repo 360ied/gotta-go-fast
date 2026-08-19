@@ -9,8 +9,9 @@ export class TerminalRenderer {
 
   constructor(container: HTMLElement) {
     this.term = new Terminal({
-      cursorBlink: true,
+      cursorBlink: false,
       cursorStyle: 'block',
+      cursorInactiveStyle: 'block',
       fontFamily: "'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, monospace",
       fontSize: 16,
       lineHeight: 1.2,
@@ -45,9 +46,16 @@ export class TerminalRenderer {
     this.term.loadAddon(this.fitAddon);
     this.term.open(container);
     this.fit();
+    this.term.focus();
 
     window.addEventListener('resize', () => {
       this.fit();
+    });
+    window.addEventListener('click', () => {
+      this.term.focus();
+    });
+    window.addEventListener('focus', () => {
+      this.term.focus();
     });
   }
 
