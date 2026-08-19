@@ -25,11 +25,37 @@
             installShellCompletion --fish completions/gotta-go-fast.fish
           '';
         });
+
+        gotta-go-fast-web = pkgs.buildNpmPackage {
+          pname = "gotta-go-fast-web";
+          version = "0.3.0";
+          src = ./web;
+
+          npmDepsHash = "sha256-JfCqhh74J9H9ms0nymRWkG+Pydd6wv1otxth08+6WH0=";
+
+          installPhase = ''
+            runHook preInstall
+            cp -r dist $out
+            runHook postInstall
+          '';
+
+          doCheck = true;
+          checkPhase = ''
+            runHook preCheck
+            npm test
+            runHook postCheck
+          '';
+        };
       in
       {
         packages = {
           default = gotta-go-fast;
           gotta-go-fast = gotta-go-fast;
+          gotta-go-fast-web = gotta-go-fast-web;
+        };
+
+        checks = {
+          gotta-go-fast-web = gotta-go-fast-web;
         };
 
         apps = {
@@ -61,6 +87,7 @@
               pkgs.nodejs
               pkgs.bun
               pkgs.biome
+              pkgs.prefetch-npm-deps
             ];
           withHoogle = true;
         };
