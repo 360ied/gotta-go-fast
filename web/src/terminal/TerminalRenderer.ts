@@ -11,7 +11,7 @@ export class TerminalRenderer {
     this.term = new Terminal({
       cursorBlink: false,
       cursorStyle: 'block',
-      cursorInactiveStyle: 'block',
+      cursorInactiveStyle: 'outline',
       fontFamily: "'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, monospace",
       fontSize: 16,
       lineHeight: 1.2,
@@ -56,6 +56,16 @@ export class TerminalRenderer {
     });
     window.addEventListener('focus', () => {
       this.term.focus();
+    });
+    window.addEventListener('blur', () => {
+      this.term.blur();
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) {
+        this.term.blur();
+      } else {
+        this.term.focus();
+      }
     });
   }
 
