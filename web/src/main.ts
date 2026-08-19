@@ -43,6 +43,8 @@ function initApp(): void {
     }
   }
 
+  renderer.onResize = render;
+
   // Initialize initial state
   const target = sampleNewTarget();
   state = initialState(target);

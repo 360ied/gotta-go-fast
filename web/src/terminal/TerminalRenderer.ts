@@ -6,6 +6,7 @@ import { accuracy, cursor, hasEnded, haskellLines, page, wpm } from '../core/Got
 export class TerminalRenderer {
   public term: Terminal;
   public fitAddon: FitAddon;
+  public onResize?: () => void;
 
   constructor(container: HTMLElement) {
     this.term = new Terminal({
@@ -48,8 +49,18 @@ export class TerminalRenderer {
     this.fit();
     this.term.focus();
 
+    let resizeRaf: number | null = null;
     window.addEventListener('resize', () => {
-      this.fit();
+      if (resizeRaf !== null) {
+        cancelAnimationFrame(resizeRaf);
+      }
+      resizeRaf = requestAnimationFrame(() => {
+        this.fit();
+        if (this.onResize) {
+          this.onResize();
+        }
+        resizeRaf = null;
+      });
     });
     window.addEventListener('click', () => {
       this.term.focus();
