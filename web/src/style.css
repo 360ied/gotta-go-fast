@@ -1,4 +1,4 @@
-@import '@xterm/xterm/css/xterm.css';
+@import "@xterm/xterm/css/xterm.css";
 
 * {
   box-sizing: border-box;
@@ -13,7 +13,7 @@ body {
   overflow: hidden;
   background-color: #000000;
   color: #ffffff;
-  font-family: 'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  font-family: "Fira Code", "JetBrains Mono", Menlo, Monaco, Consolas, "Courier New", monospace;
   user-select: none;
   -webkit-user-select: none;
 }

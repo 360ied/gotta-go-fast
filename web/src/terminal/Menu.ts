@@ -19,11 +19,7 @@ export class Menu {
   private onConfigChanged: (newConfig: Config) => void;
   private onRestart: () => void;
 
-  constructor(
-    config: Config,
-    onConfigChanged: (newConfig: Config) => void,
-    onRestart: () => void
-  ) {
+  constructor(config: Config, onConfigChanged: (newConfig: Config) => void, onRestart: () => void) {
     this.config = config;
     this.onConfigChanged = onConfigChanged;
     this.onRestart = onRestart;
@@ -118,8 +114,7 @@ export class Menu {
       {
         id: 'file',
         label: 'Loaded File',
-        getValue: () =>
-          this.loadedFileName ? this.loadedFileName : '(Drag & Drop file to load)',
+        getValue: () => (this.loadedFileName ? this.loadedFileName : '(Drag & Drop file to load)'),
         next: () => {
           // Clear loaded file if pressed
           if (this.loadedFileContent) {

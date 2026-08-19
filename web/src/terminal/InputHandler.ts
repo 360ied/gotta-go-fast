@@ -47,7 +47,13 @@ export class InputHandler {
         if (
           e.key === 'Tab' ||
           e.key === 'F1' ||
-          (e.ctrlKey && (e.key === 'w' || e.key === 'W' || e.key === 'o' || e.key === 'O' || e.key === 'c' || e.key === 'C')) ||
+          (e.ctrlKey &&
+            (e.key === 'w' ||
+              e.key === 'W' ||
+              e.key === 'o' ||
+              e.key === 'O' ||
+              e.key === 'c' ||
+              e.key === 'C')) ||
           (e.altKey && e.key === 'Backspace') ||
           (e.metaKey && e.key === 'Backspace') ||
           (e.ctrlKey && e.key === 'Backspace')
@@ -141,10 +147,18 @@ export class InputHandler {
             // Save to stats storage
             StatsStorage.addRecord({
               timestamp: Date.now(),
-              wpm: Math.round(sNext.strokes > 0 ? (sNext.target.length / ((5 * ((now - sNext.start!) / 1000)) / 60)) : 0),
+              wpm: Math.round(
+                sNext.strokes > 0
+                  ? sNext.target.length / ((5 * ((now - sNext.start!) / 1000)) / 60)
+                  : 0
+              ),
               accuracy: sNext.strokes > 0 ? sNext.hits / sNext.strokes : 1.0,
               strokes: sNext.strokes,
-              mode: this.menu.loadedFileName ? (this.getConfig().paragraph ? 'Paragraph' : 'Chunk') : 'Nonsense',
+              mode: this.menu.loadedFileName
+                ? this.getConfig().paragraph
+                  ? 'Paragraph'
+                  : 'Chunk'
+                : 'Nonsense',
             });
           }
 
