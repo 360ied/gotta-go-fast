@@ -28,3 +28,8 @@ cabal.project.local
 result
 .nix-cache
 .direnv
+
+# JavaScript / Web
+node_modules/
+web/dist/
+web/node_modules/

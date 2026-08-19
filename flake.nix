@@ -39,6 +39,11 @@
           gotta-go-fast = flake-utils.lib.mkApp {
             drv = gotta-go-fast;
           };
+          web-dev = flake-utils.lib.mkApp {
+            drv = pkgs.writeShellScriptBin "gotta-go-fast-web-dev" ''
+              cd web && ${pkgs.bun}/bin/bun run dev
+            '';
+          };
         };
 
         devShells.default = haskellPackages.shellFor {
@@ -53,6 +58,8 @@
             ]
             ++ [
               pkgs.nixfmt
+              pkgs.nodejs
+              pkgs.bun
             ];
           withHoogle = true;
         };
