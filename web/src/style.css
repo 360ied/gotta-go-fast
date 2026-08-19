@@ -1,0 +1,37 @@
+@import '@xterm/xterm/css/xterm.css';
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: #000000;
+  color: #ffffff;
+  font-family: 'Fira Code', 'JetBrains Mono', Menlo, Monaco, Consolas, 'Courier New', monospace;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+#terminal-container {
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+}
+
+.xterm {
+  height: 100%;
+  padding: 0;
+}
+
+.xterm .xterm-viewport {
+  overflow-y: hidden !important;
+}
