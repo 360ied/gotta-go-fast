@@ -1,4 +1,5 @@
 import {
+  accuracy,
   applyBackspace,
   applyBackspaceWord,
   applyChar,
@@ -7,6 +8,7 @@ import {
   isComplete,
   startClock,
   stopClock,
+  wpm,
 } from '../core/GottaGoFast';
 import type { Config, State } from '../core/types';
 import { StatsStorage } from '../storage/StatsStorage';
@@ -63,8 +65,13 @@ export class InputHandler {
 
         // Toggle menu
         if (e.key === 'Tab' || e.key === 'F1' || (e.ctrlKey && (e.key === 'o' || e.key === 'O'))) {
+          const wasOpen = this.menu.isOpen;
           this.menu.isOpen = !this.menu.isOpen;
-          this.onRender();
+          if (wasOpen) {
+            this.onRestart();
+          } else {
+            this.onRender();
+          }
           return;
         }
 
@@ -147,12 +154,8 @@ export class InputHandler {
             // Save to stats storage
             StatsStorage.addRecord({
               timestamp: Date.now(),
-              wpm: Math.round(
-                sNext.strokes > 0
-                  ? sNext.target.length / ((5 * ((now - sNext.start!) / 1000)) / 60)
-                  : 0
-              ),
-              accuracy: sNext.strokes > 0 ? sNext.hits / sNext.strokes : 1.0,
+              wpm: Math.round(wpm(sNext)),
+              accuracy: accuracy(sNext),
               strokes: sNext.strokes,
               mode: this.menu.loadedFileName
                 ? this.getConfig().paragraph
@@ -173,7 +176,9 @@ export class InputHandler {
   private setupDragAndDrop(): void {
     window.addEventListener('dragover', (e) => {
       e.preventDefault();
-      e.dataTransfer!.dropEffect = 'copy';
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'copy';
+      }
     });
 
     window.addEventListener('drop', (e) => {
