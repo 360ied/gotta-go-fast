@@ -60,6 +60,7 @@
               pkgs.nixfmt
               pkgs.nodejs
               pkgs.bun
+              pkgs.biome
             ];
           withHoogle = true;
         };
