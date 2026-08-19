@@ -1,4 +1,4 @@
-import { Config, defaultConfig } from '../core/types';
+import { type Config, defaultConfig } from '../core/types';
 
 export interface TypingRecord {
   timestamp: number;
@@ -44,17 +44,17 @@ export class StatsStorage {
   }
 
   public static getConfig(): Config {
-    return this.loadRaw().config;
+    return StatsStorage.loadRaw().config;
   }
 
   public static saveConfig(config: Config): void {
-    const data = this.loadRaw();
+    const data = StatsStorage.loadRaw();
     data.config = config;
-    this.saveRaw(data);
+    StatsStorage.saveRaw(data);
   }
 
   public static addRecord(record: TypingRecord): void {
-    const data = this.loadRaw();
+    const data = StatsStorage.loadRaw();
     data.records.unshift(record);
     if (data.records.length > 50) {
       data.records.pop();
@@ -65,11 +65,11 @@ export class StatsStorage {
     if (record.accuracy > data.bestAccuracy) {
       data.bestAccuracy = record.accuracy;
     }
-    this.saveRaw(data);
+    StatsStorage.saveRaw(data);
   }
 
   public static getStats(): { bestWpm: number; bestAccuracy: number; totalTests: number } {
-    const data = this.loadRaw();
+    const data = StatsStorage.loadRaw();
     return {
       bestWpm: data.bestWpm,
       bestAccuracy: data.bestAccuracy,

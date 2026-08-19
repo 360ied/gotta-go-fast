@@ -1,4 +1,3 @@
-import { Config, State } from '../core/types';
 import {
   applyBackspace,
   applyBackspaceWord,
@@ -9,8 +8,9 @@ import {
   startClock,
   stopClock,
 } from '../core/GottaGoFast';
-import { Menu } from './Menu';
+import type { Config, State } from '../core/types';
 import { StatsStorage } from '../storage/StatsStorage';
+import type { Menu } from './Menu';
 
 export class InputHandler {
   private getState: () => State;
@@ -77,7 +77,7 @@ export class InputHandler {
           return;
         }
 
-        let s = this.getState();
+        const s = this.getState();
 
         // Ctrl+C restart
         if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) {

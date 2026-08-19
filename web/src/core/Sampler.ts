@@ -1,6 +1,6 @@
-import { Config } from './types';
 import { haskellLines } from './GottaGoFast';
 import { toAscii, trimEmptyLines, wrapText } from './TextWrap';
+import type { Config } from './types';
 
 export interface WordWeightTable {
   words: string[];

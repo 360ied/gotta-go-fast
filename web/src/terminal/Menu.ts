@@ -1,4 +1,4 @@
-import { Config } from '../core/types';
+import type { Config } from '../core/types';
 import { StatsStorage } from '../storage/StatsStorage';
 
 export interface MenuOption {

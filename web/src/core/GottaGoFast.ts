@@ -1,4 +1,4 @@
-import { Character, Line, Page, Position, State } from './types';
+import type { Character, Line, Page, Position, State } from './types';
 
 export function isSpace(c: string): boolean {
   return c === ' ' || c === '\t' || c === '\n' || c === '\r' || c === '\v' || c === '\f';

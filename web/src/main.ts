@@ -1,11 +1,11 @@
 import wordWeightsRaw from './assets/wordWeights.txt?raw';
-import { Config, State } from './core/types';
 import { initialState } from './core/GottaGoFast';
-import { parseWordWeights, sample, WordWeightTable } from './core/Sampler';
+import { parseWordWeights, sample, type WordWeightTable } from './core/Sampler';
+import type { Config, State } from './core/types';
 import { StatsStorage } from './storage/StatsStorage';
-import { TerminalRenderer } from './terminal/TerminalRenderer';
-import { Menu } from './terminal/Menu';
 import { InputHandler } from './terminal/InputHandler';
+import { Menu } from './terminal/Menu';
+import { TerminalRenderer } from './terminal/TerminalRenderer';
 
 function initApp(): void {
   const container = document.getElementById('terminal-container');

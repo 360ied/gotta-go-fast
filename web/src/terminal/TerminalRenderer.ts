@@ -1,7 +1,7 @@
-import { Terminal } from '@xterm/xterm';
 import { FitAddon } from '@xterm/addon-fit';
-import { Config, State } from '../core/types';
+import { Terminal } from '@xterm/xterm';
 import { accuracy, cursor, hasEnded, haskellLines, page, wpm } from '../core/GottaGoFast';
+import type { Config, State } from '../core/types';
 
 export class TerminalRenderer {
   public term: Terminal;
