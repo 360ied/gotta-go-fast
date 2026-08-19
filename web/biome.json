@@ -22,7 +22,14 @@
   "linter": {
     "enabled": true,
     "rules": {
-      "recommended": true
+      "recommended": true,
+      "suspicious": {
+        "noFocusedTests": "off"
+      },
+      "complexity": {
+        "noStaticOnlyClass": "off",
+        "noImportantStyles": "off"
+      }
     }
   },
   "javascript": {

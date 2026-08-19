@@ -70,7 +70,7 @@ export function nonsense(config: Config, table: WordWeightTable): string {
     n -= word.length + 1; // 1 extra for space
   }
 
-  return wrapText(config.width, words.join(' ')) + '\n';
+  return `${wrapText(config.width, words.join(' '))}\n`;
 }
 
 export function splitOnEmptyLines(linesList: string[]): string[][] {
