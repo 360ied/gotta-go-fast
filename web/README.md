@@ -23,10 +23,32 @@ nix run .#web-dev
 nix develop --command bash -c "cd web && bun test"
 ```
 
-### Production Build
+### Production Build (Bun)
 ```bash
 nix develop --command bash -c "cd web && bun run build"
 ```
+
+### Production Build (Nix Flakes)
+Build the standalone static distribution package via Nix:
+```bash
+nix build .#gotta-go-fast-web
+```
+The output directory will be symlinked to `./result` containing `index.html` and static assets.
+
+### Dependency Management & Lockfile Synchronization
+When updating dependencies in `web/`:
+1. Add or upgrade packages with Bun:
+   ```bash
+   cd web && bun add <package>
+   ```
+2. Synchronize `package-lock.json` for Nix:
+   ```bash
+   cd web && npm install --package-lock-only
+   ```
+3. Update `npmDepsHash` in `flake.nix` with the new hash:
+   ```bash
+   prefetch-npm-deps web/package-lock.json
+   ```
 
 ---
 

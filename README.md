@@ -37,6 +37,7 @@ A browser port of `gotta-go-fast` built with **TypeScript** and **xterm.js** is 
 Within `nix develop` (or with Bun installed):
 
 - **Start dev server**: `nix run .#web-dev` or `cd web && bun run dev`
+- **Build Nix package**: `nix build .#gotta-go-fast-web`
 - **Run automated tests**: `cd web && bun test`
 - **Build production bundle**: `cd web && bun run build`
 - **Format code**: `cd web && bun run format` (or `biome format --write web/`)
