@@ -67,7 +67,13 @@
           };
           web-dev = flake-utils.lib.mkApp {
             drv = pkgs.writeShellScriptBin "gotta-go-fast-web-dev" ''
-              cd web && ${pkgs.bun}/bin/bun run dev
+              if [ ! -d "web" ]; then
+                echo "Error: Directory 'web' not found. Please run this command from the repository root." >&2
+                exit 1
+              fi
+              cd web
+              ${pkgs.bun}/bin/bun install --frozen-lockfile
+              exec ${pkgs.bun}/bin/bun run dev "$@"
             '';
           };
         };
